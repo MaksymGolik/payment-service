@@ -10,6 +10,8 @@ import com.app.paymentservice.service.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
@@ -22,5 +24,12 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = PaymentMapper.createDtoToModel(paymentCreateRequest);
         payment.setStatus(NEW_STATUS);
         return PaymentMapper.modelToResponseDto(paymentRepository.save(payment));
+    }
+
+    @Override
+    public PaymentResponse findPaymentByTicketId(Long ticketId) {
+        return PaymentMapper.modelToResponseDto(paymentRepository
+                .findPaymentByTicketId(ticketId)
+                .orElseThrow(()-> new IllegalArgumentException("No payment found by ticket id " + ticketId)));
     }
 }
