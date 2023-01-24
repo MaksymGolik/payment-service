@@ -22,7 +22,7 @@ public class PaymentMapper {
                 .middleName(payment.getMiddleName())
                 .lastName(payment.getLastName())
                 .paymentAmount(payment.getPaymentAmount())
-                .status(payment.getStatus())
+                .status(payment.getStatus().name())
                 .ticketId(payment.getTicketId())
                 .build();
     }
