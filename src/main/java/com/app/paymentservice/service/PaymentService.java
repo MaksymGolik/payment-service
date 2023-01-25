@@ -6,4 +6,5 @@ import com.app.paymentservice.dto.PaymentResponse;
 public interface PaymentService {
     PaymentResponse save(PaymentCreateRequest paymentCreateRequest);
     PaymentResponse findPaymentByTicketId(Long ticketId);
+    void checkNewPayments();
 }
