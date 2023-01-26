@@ -41,6 +41,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentResponse save(PaymentCreateRequest paymentCreateRequest) {
+        if(paymentRepository.findPaymentByTicketId(paymentCreateRequest.getTicketId()).isPresent())
+            throw new IllegalArgumentException("Payment for ticket with id "
+                    + paymentCreateRequest.getTicketId()+" already exists.");
         Payment payment = PaymentMapper.createDtoToModel(paymentCreateRequest);
         payment.setStatus(NEW_STATUS);
         return PaymentMapper.modelToResponseDto(paymentRepository.save(payment));
